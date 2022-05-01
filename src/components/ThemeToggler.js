@@ -1,5 +1,6 @@
 import React from 'react';
 import {useColorMode, Box, IconButton} from '@chakra-ui/react';
+import {MoonIcon, SunIcon} from '@chakra-ui/icons';
 
 export default function ThemeToggler() {
     const { colorMode, toggleColorMode } = useColorMode();
@@ -7,10 +8,8 @@ export default function ThemeToggler() {
       <Box textAlign="right" py={4} mr={12}>
         <IconButton
           //toggle icon based on color mode
-            icon={colorMode === 'light' ? 'moon' : 'sun'}
+            icon={colorMode === 'light' ? <SunIcon/>: <MoonIcon/>}
             aria-label="Toggle dark mode"
-            //add label text to button
-            label={'POG'}
             onClick={toggleColorMode}
         //   variant="ghost"
         />

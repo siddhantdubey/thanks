@@ -1,0 +1,107 @@
+/* body {
+    margin: 0;
+    padding: 0;
+    background: #efefef;
+  } */
+  /* rgb(253, 250, 250) */
+
+  .letter-light {
+    font-family: 'Courier New', Courier, monospace;
+    position: relative;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(233, 216, 195);
+    margin: 40px auto;
+    width: 1000px;
+    height: 800px;
+    background: rgb(253, 250, 250);
+    border-radius: 2px;
+    padding: 20px;
+    color: black;
+  }
+  
+  .letter-light::before,
+  .letter-light::after {
+    content: '';
+    position: absolute;
+    bottom: 10px;
+    width: 40%;
+    height: 10px;
+    box-shadow: 0 5px 14px rgb(230,222,208);
+    z-index: -1;
+    transition: all .3s ease-in-out;
+  }
+  
+  .letter-light::before {
+    left: 15px;
+    transform: skew(-5deg) rotate(-5deg);
+  }
+  
+  .letter-light::after {
+    right: 15px;
+    transform: skew(5deg) rotate(5deg);
+  }
+  
+  .letter-light:hover::before,
+  .letter-light:hover::after {
+    box-shadow: 0 2px 14px rgba(0,0,0,.4);
+  }
+  
+  .letter-light:hover::before {
+    left: 5px;
+  }
+  
+  .letter-light:hover::after {
+    right: 5px;
+  }
+
+/*rgb(26,32,44);  */
+  .letter-dark {
+    font-family: 'Courier New', Courier, monospace;
+    position: relative;
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgb(33, 44, 65);
+    margin: 40px auto;
+    width: 1000px;
+    height: 800px;
+    background: rgb(44, 54, 75);
+    border-radius: 2px;
+    padding: 20px;
+    color: white;
+  }
+  
+  .letter-dark::before,
+  .letter-dark::after {
+    content: '';
+    position: absolute;
+    bottom: 10px;
+    width: 40%;
+    height: 10px;
+    box-shadow: 0 5px 14px rgb(0, 0, 0);
+    z-index: -1;
+    transition: all .3s ease-in-out;
+  }
+  
+  .letter-dark::before {
+    left: 15px;
+    transform: skew(-5deg) rotate(-5deg);
+  }
+  
+  .letter-dark::after {
+    right: 15px;
+    transform: skew(5deg) rotate(5deg);
+  }
+  
+  .letter-dark:hover::before,
+  .letter-dark:hover::after {
+    box-shadow: 0 2px 14px rgb(57, 74, 110);
+  }
+  
+  .letter-dark:hover::before {
+    left: 5px;
+  }
+  
+  .letter-dark:hover::after {
+    right: 5px;
+  }

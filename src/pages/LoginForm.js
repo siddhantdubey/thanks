@@ -8,18 +8,14 @@ import {
   Input,
   Button,
 } from "@chakra-ui/react";
-
-//set up firebase
+import Letter from "../components/Letter";
 import firebase from "firebase/app";
+import "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyAvOh-k1_Gg0wvGbray85VNsRZ_nOLiKEE",
   authDomain: "thankyou-6cc7f.firebaseapp.com",
@@ -33,14 +29,27 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-
+const db = getFirestore(app);
 const auth = getAuth(app);
+
+
+//use the await function to set up querySnapshot with collections(db, "users")
+
+async function getQueries() {
+  var querySnapshot = await getDocs(collection(db, "users"));
+  return querySnapshot;
+}
 
 export default function LoginForm() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  return (
-    <Flex width="full" align="center" justifyContent="center">
+  const [signedIn, setSignedIn] = React.useState(false);
+  const [message, setMessage] = React.useState("");
+  return (    
+
+
+    signedIn ?  (<Letter letter={message}></Letter>) :
+    (<Flex width="full" align="center" justifyContent="center">
       <Box
         p={8}
         maxWidth="500px"
@@ -48,9 +57,6 @@ export default function LoginForm() {
         borderRadius={8}
         boxShadow="lg"
       >
-        {/* <Box textAlign="center">
-          <Heading>Thank You</Heading>
-        </Box> */}
         <Box my={4} textAlign="left">
           <form>
             <FormControl>
@@ -74,7 +80,16 @@ export default function LoginForm() {
                 signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
                     // Signed in 
                     const user = userCredential.user;
-                    console.log("POG");
+                    console.log(user.uid);
+                    //find the user by email
+                    getQueries().then((querySnapshot) => {
+                      querySnapshot.docs.forEach((doc) => {
+                        if (doc.data().email === email) {
+                          setMessage(doc.data().message);
+                        }
+                      });
+                    });
+                    setSignedIn(true);
                   })
                   .catch((error) => {
                     const errorCode = error.code;
@@ -88,6 +103,6 @@ export default function LoginForm() {
           </form>
         </Box>
       </Box>
-    </Flex>
+    </Flex>) 
   );
 }
